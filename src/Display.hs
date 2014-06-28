@@ -24,3 +24,7 @@ generateLine =
 -- Generating an image for a board
 generateBoardImage :: Board -> Image
 generateBoardImage (Board tss) = vertCat $ map generateLine tss
+
+-- Making the board image into a picture
+generateBoardPicture :: Board -> Picture
+generateBoardPicture = picForImage . generateBoardImage
