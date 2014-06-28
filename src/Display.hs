@@ -2,6 +2,7 @@ module Display where
 
 import Graphics.Vty.Attributes
 import Graphics.Vty.Image
+import Graphics.Vty
 
 import Board
 
