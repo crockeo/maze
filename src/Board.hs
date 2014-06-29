@@ -1,14 +1,7 @@
 module Board where
 
+import Types
 import Utils
-
-data Tile = Player
-          | Spawn
-          | Empty
-          | Wall
-          | Finish
-
-newtype Board = Board { tiles :: [[Tile]] }
 
 -- Converting a tile to its display char
 displayTile :: Tile -> Char

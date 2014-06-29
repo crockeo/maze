@@ -5,6 +5,7 @@ import Graphics.Vty.Image
 import Graphics.Vty
 
 import Board
+import Types
 
 -- Generating styling for a Tile
 generateAttr :: Tile -> Attr
