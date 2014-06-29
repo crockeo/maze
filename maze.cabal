@@ -1,5 +1,5 @@
 name:             maze
-version:          1.0.0.0
+version:          0.1.0.0
 author:           Cerek Hillen
 maintainer:       crockeo@gmail.com
 synopsis:         An expedition into the State monad for use in videogames.
