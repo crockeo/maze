@@ -7,29 +7,47 @@ import Graphics.Vty
 
 import Display
 import Board
+import Types
+import Move
 
-data Game = Game { vty    :: Vty
-                 , board  :: Board
-                 , width  :: Int
-                 , height :: Int
-                 }
+-- Key config
+quitKey  = 'q'
+upKey    = 'w'
+downKey  = 's'
+leftKey  = 'a'
+rightKey = 'd'
 
-type GameState a = State Game a
+-- Getting a board from a GameState
+getBoard :: GameState Board
+getBoard = state $ \board -> (board, board)
 
+-- Starting a game
 startGame :: Vty -> FilePath -> IO ()
 startGame vty fp = do
   board <- loadBoard fp
-  gameLoop $ Game { vty    = vty
-                  , board  = board
-                  , width  = length $        tiles board
-                  , height = length $ head $ tiles board
-                  }
+  evalStateT (gameLoop vty) $ board
+  shutdown vty
 
-gameLoop :: Game -> IO ()
-gameLoop game = do
-  update (vty game) (generateBoardPicture $ board game)
+-- The game loop
+gameLoop :: Vty -> GameState ()
+gameLoop vty = do
+  renderGame vty
+  updateGame vty
 
-  event <- nextEvent $ vty game
-  case event of
-    EvKey (KChar 'q') [] -> shutdown $ vty game
-    other                -> gameLoop game
+-- Rendering the game
+renderGame :: Vty -> GameState ()
+renderGame vty = getBoard >>= liftIO . update vty . generateBoardPicture
+
+-- Updating the game
+updateGame :: Vty -> GameState ()
+updateGame vty = do
+  input <- liftIO $ nextEvent vty
+  updateGame' vty input
+  where updateGame' :: Vty -> Event -> GameState ()
+        updateGame' vty event
+          | event == EvKey (KChar quitKey ) [] = return ()
+          | event == EvKey (KChar upKey   ) [] = moveUp    >> gameLoop vty
+          | event == EvKey (KChar downKey ) [] = moveDown  >> gameLoop vty
+          | event == EvKey (KChar leftKey ) [] = moveLeft  >> gameLoop vty
+          | event == EvKey (KChar rightKey) [] = moveRight >> gameLoop vty
+          | otherwise                          = gameLoop vty
