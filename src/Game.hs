@@ -6,7 +6,6 @@ import Graphics.Vty.Input.Events
 import Graphics.Vty
 
 import Display
-import Board
 import Types
 import Move
 
