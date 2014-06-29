@@ -1,13 +1,9 @@
-module Types where
+module Types (module TypesExport, GameState) where
 
 import Control.Monad.State
 
-data Tile = Player
-          | Spawn
-          | Empty
-          | Wall
-          | Finish
-
-newtype Board = Board { tiles :: [[Tile]] }
+import Direction as TypesExport
+import Position  as TypesExport
+import Board     as TypesExport
 
 type GameState a = StateT Board IO a
