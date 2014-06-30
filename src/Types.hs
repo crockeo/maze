@@ -3,6 +3,7 @@ module Types ( module TypesExport
              , GameState
              , getBoard
              , getVty
+             , hasWon
              ) where
 
 import Control.Monad.State
