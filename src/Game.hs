@@ -37,7 +37,11 @@ gameLoop = do
 
 -- Rendering a won screen
 renderWon :: GameState ()
-renderWon = undefined
+renderWon = do
+  vty <- getVty
+  liftIO $ update vty $ generateWonPicture
+  liftIO $ nextEvent vty
+  return ()
 
 -- Rendering the game
 renderGame :: GameState ()

@@ -29,3 +29,14 @@ generateBoardImage (Board tss) = vertCat $ map generateLine tss
 -- Making the board image into a picture
 generateBoardPicture :: Board -> Picture
 generateBoardPicture = picForImage . generateBoardImage
+
+-- Generating the 'won game' image
+generateWonImage :: Image
+generateWonImage =
+  vertCat [ string (defAttr `withForeColor` green) "      You won!!!"
+          , string (defAttr `withForeColor` green) "Press any key to quit."
+          ]
+
+-- Making the 'won game' picture
+generateWonPicture :: Picture
+generateWonPicture = picForImage $ generateWonImage
