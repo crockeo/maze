@@ -28,20 +28,24 @@ setTile (Position row col) tile =
   state $ \game ->
     ((), game { board = Board $ replace2D tile (tiles $ board game) row col })
 
+-- Setting whether or not the player has won
+setWon :: Bool -> GameState ()
+setWon won = state $ \game -> ((), game { won = won })
+
 -- Moving an arbitrary direction
-moveDirection :: Direction -> GameState Bool
+moveDirection :: Direction -> GameState ()
 moveDirection dir = do
   playerPos <- playerPosition
   let newPos = translate playerPos $ toPosition dir
   
   newCurrent <- getTile newPos
   case newCurrent of
-    Wall   -> return False
-    Finish -> return True
+    Wall   -> setWon False
+    Finish -> setWon True
     Empty  -> do
       setTile playerPos Empty
       setTile newPos    Player
-      return False
+      setWon False
 
 moveUp    = moveDirection Upwards
 moveDown  = moveDirection Downwards
