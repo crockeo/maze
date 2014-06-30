@@ -10,7 +10,6 @@ import Types
 -- Generating styling for a Tile
 generateAttr :: Tile -> Attr
 generateAttr Player = defAttr `withForeColor` green
-generateAttr Spawn  = defAttr `withForeColor` green
 generateAttr Empty  = defAttr `withForeColor` black
 generateAttr Wall   = defAttr `withForeColor` white
 generateAttr Finish = defAttr `withForeColor` blue
