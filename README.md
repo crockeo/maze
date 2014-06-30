@@ -13,6 +13,12 @@ Simultaniously, though, it should be at least resonably playable.
 >$ git clone https://github.com/Crockeo/maze.git
 >$ cd maze
 >$ cabal sandbox init # Optional
+
+# Either this:
 >$ cabal install
 >$ dist/build/maze/maze # Running the program
+
+# Or that:
+>$ cabal install --only-dependencies
+>$ cabal run
 ```
