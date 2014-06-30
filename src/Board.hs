@@ -6,6 +6,7 @@ data Tile = Player
           | Empty
           | Wall
           | Finish
+  deriving (Eq)
 
 newtype Board = Board { tiles :: [[Tile]] }
 
