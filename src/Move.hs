@@ -25,8 +25,8 @@ getTile pos =
 -- Setting  a  tile at a position
 setTile :: Position -> Tile -> GameState ()
 setTile (Position row col) tile =
-  state $ \g@(Game (Board tiles) _) ->
-    ((), g { board = Board $ replace2D tile tiles row col })
+  state $ \game ->
+    ((), game { board = Board $ replace2D tile (tiles $ board game) row col })
 
 -- Moving an arbitrary direction
 moveDirection :: Direction -> GameState Bool

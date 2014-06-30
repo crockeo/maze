@@ -22,6 +22,7 @@ startGame vty fp = do
   board <- loadBoard fp
   evalStateT gameLoop $ Game { board = board
                              , vty   = vty
+                             , won   = False
                              }
   shutdown vty
 
