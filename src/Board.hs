@@ -9,6 +9,14 @@ data Tile = Player
 
 newtype Board = Board { tiles :: [[Tile]] }
 
+-- Getting the width of a board
+boardWidth :: Board -> Int
+boardWidth = length . head . tiles
+
+-- Getting the height of a board
+boardHeight :: Board -> Int
+boardHeight = length . tiles
+
 -- Converting a tile to its display char
 displayTile :: Tile -> Char
 displayTile Player = '@'
