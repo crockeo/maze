@@ -33,8 +33,8 @@ generateBoardPicture = picForImage . generateBoardImage
 -- Generating the 'won game' image
 generateWonImage :: Image
 generateWonImage =
-  vertCat [ string (defAttr `withForeColor` green) "      You won!!!"
-          , string (defAttr `withForeColor` green) "Press any key to quit."
+  vertCat [ string (defAttr `withForeColor` white) "      You won!!!"
+          , string (defAttr `withForeColor` white) "Press any key to quit."
           ]
 
 -- Making the 'won game' picture
