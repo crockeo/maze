@@ -29,8 +29,15 @@ startGame vty fp = do
 -- The game loop
 gameLoop :: GameState ()
 gameLoop = do
-  renderGame
-  updateGame
+  won <- hasWon
+
+  if won
+    then renderWon
+    else renderGame >> updateGame
+
+-- Rendering a won screen
+renderWon :: GameState ()
+renderWon = undefined
 
 -- Rendering the game
 renderGame :: GameState ()
