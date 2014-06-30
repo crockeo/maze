@@ -11,22 +11,22 @@ getTileRaw (Board tiles) (Position row col) = tiles !! row !! col
 -- Getting the player position
 playerPosition :: GameState Position
 playerPosition =
-  state $ \board ->
-  let poses = [Position row col | row <- [0 .. (boardHeight board) - 1]
-                                , col <- [0 .. (boardWidth  board) - 1]] in
-    (head $ filter (\pos -> getTileRaw board pos == Player) poses, board)
+  state $ \game ->
+    let poses = [Position row col | row <- [0 .. (boardHeight $ board game) - 1]
+                                  , col <- [0 .. (boardWidth  $ board game) - 1]] in
+    (head $ filter (\pos -> getTileRaw (board game) pos == Player) poses, game)
 
 -- Getting the tile at a postion
 getTile :: Position -> GameState Tile
 getTile pos =
-  state $ \board ->
-    (getTileRaw board pos, board)
+  state $ \game ->
+    (getTileRaw (board game) pos, game)
 
 -- Setting  a  tile at a position
 setTile :: Position -> Tile -> GameState ()
 setTile (Position row col) tile =
-  state $ \board@(Board tiles) ->
-    ((), Board $ replace2D tile tiles row col)
+  state $ \g@(Game (Board tiles) _) ->
+    ((), g { board = Board $ replace2D tile tiles row col })
 
 -- Moving an arbitrary direction
 moveDirection :: Direction -> GameState Bool
